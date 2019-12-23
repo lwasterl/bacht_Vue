@@ -1,0 +1,8 @@
+[
+    {
+        "title":"Board 1",
+        "element": ["element 1", "element 2", "element 3"],
+        "user_id":"28",
+        "role":["etudiant", "professeur", "doyen"]
+    }
+]

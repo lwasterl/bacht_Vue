@@ -12,6 +12,8 @@
       
 
       <v-spacer></v-spacer>
+        <h4 v-if="connected">Connecté en tant que : {{id}}</h4>
+        <v-spacer></v-spacer>
         <v-btn v-if="connected" v-on:click="deco">Se déconnecter</v-btn>
     </v-app-bar>
 
@@ -40,8 +42,8 @@
         <v-card>
            <v-card-title class="headline">Connexion</v-card-title>
                     <v-text-field
-                    label="Identifiant"
-                    v-model="Id"
+                    label="Nom"
+                    v-model="id"
                     ></v-text-field>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -75,7 +77,7 @@ export default {
     connected:false,
     users,
     dialog_connect:false,
-    Id:""
+    id:""
   }),
 
   methods:{
@@ -93,7 +95,7 @@ export default {
     },
     testCo:function(){
       for (let index = 0; index < users.length; index++) {
-        if(this.Id == this.users[index]["Id"]){
+        if(this.id == this.users[index]["Nom"]){
           this.connected=true
           this.dialog_connect=false
         }
