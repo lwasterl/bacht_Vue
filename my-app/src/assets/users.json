@@ -1,0 +1,18 @@
+[
+    {
+        "Id":"28",
+        "Role": "Etudiant"
+    },
+    {
+        "Id":"29",
+        "Role": "Professeur"
+    },
+    {
+        "Id":"34",
+        "Role": "Secrétaire"
+    },
+    {
+        "Id":"23",
+        "Role": "Admin"
+    }
+]
