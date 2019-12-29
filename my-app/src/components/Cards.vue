@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div v-for="item in list['element']" :key=item>
+        
+        <div v-for="item in list" :key=item>
             <v-card
             class="mx-auto"
             max-width="344"

@@ -1,0 +1,10 @@
+INFO  time: initialize in 2.5s
+WARN  no build tool detected in workspace 'C:\Users\HP\Documents\bacht_Vue\my-app'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+WARN  no build target: C:\Users\HP\Documents\serveur_scalatra\bachtscala\src\main\scala\com\example\app\MyScalatraServlet.scala
+INFO  no build target: using presentation compiler with only scala-library
+déc. 29, 2019 1:56:02 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 1
+déc. 29, 2019 1:56:02 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3
+WARN  no build target: C:\Users\HP\Documents\serveur_scalatra\bachtscala\src\main\scala\com\example\app\MyScalatraServlet.scala
+WARN  no build target: C:\Users\HP\Documents\serveur_scalatra\bachtscala\src\main\scala\com\example\app\MyScalatraServlet.scala

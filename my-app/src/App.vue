@@ -18,12 +18,12 @@
     </v-app-bar>
 
     <v-content v-if="connected">
-      <Main/>
+      <Main :user="id"/>
     </v-content>
     <v-content v-else id="connect">
       <v-row align="center" justify="center">
         <v-col>
-       <v-btn color="primary"  v-on:click="addUser">Ajouter un utilisateur</v-btn>
+       <v-btn color="primary"  v-on:click="ajout">Ajouter un utilisateur</v-btn>
         
         </v-col>
 
@@ -33,7 +33,40 @@
         </v-col>
       </v-row>
 
+
     </v-content>
+
+
+<v-dialog
+  v-model="dialog_add"
+  max-width="290"
+  >
+    <v-card>
+       <v-card>
+           <v-card-title class="headline">Ajouter un utilisateur</v-card-title>
+           
+              <v-text-field label="Nom" v-model="add_name"></v-text-field>
+                         <v-spacer></v-spacer>
+              <v-text-field label="Role" v-model="add_role"></v-text-field>
+
+           
+                   
+          <v-card-actions>
+                       <v-spacer></v-spacer>
+  
+  
+            <v-btn
+              color="green darken-1"
+              text
+              v-on:click=addUser
+            >
+            Ajouter
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+    </v-card>
+
+</v-dialog>
 
 <v-dialog
         v-model="dialog_connect"
@@ -77,13 +110,32 @@ export default {
     connected:false,
     users,
     dialog_connect:false,
-    id:""
+    dialog_add:false,
+    add_name:"",
+    add_role:"",
+    id:"",
+    post:"",
+    title:"",
+    body:"",
   }),
 
-  methods:{
-    addUser: function(){
+  created(){
+        this.$http.get("http://localhost:8080/readall/board")
+    .then(res => {
+      this.post = res.body;});
 
-    },
+  },
+  methods:{
+    addUser: function(){{
+      const postData = { "name": this.add_name, "role": this.add_role};
+      this.$http
+        .post("http://localhost:8080/tell/user", postData)
+        .then(res => {
+          console.log(res.body);
+        });
+        this.dialog_add=false;
+    }
+  },
     deco:function(){
       this.id="",
       this.connected=false
@@ -93,14 +145,21 @@ export default {
       this.dialog_connect=true;
 
     },
+
+    ajout:function(){
+      this.dialog_add=true;
+    },
     testCo:function(){
-      for (let index = 0; index < users.length; index++) {
-        if(this.id == this.users[index]["Nom"]){
+
+      const postData = { "name": this.id};
+      this.$http
+        .post("http://localhost:8080/read/user", postData)
+        .then(res => {
+          console.log(res.body);
+        });
           this.connected=true
           this.dialog_connect=false
-        }
         
-      }
     }
 
 

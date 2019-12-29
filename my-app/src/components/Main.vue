@@ -4,6 +4,7 @@
             
             <v-row align="center" justify="center">
                 <v-col class="d-flex" cols="12" sm="4">
+                    
                     <v-select
                     :items="items"
                     filled
@@ -26,33 +27,10 @@
 
 
         </v-container>
+      <Tell v-if="item_selected==='Tell'" :titre="texte" :element="element" :user="user"/>
+      <Get v-if="item_selected==='Get'" :titre="texte" :element="element" :user="user"/>
+      <Ask v-if="item_selected==='Ask'" :titre="texte" :element="element" :user="user"/>
 
-<v-dialog
-        v-model="dialog_select"
-        max-width="290"
-      >
-        <v-card>
-          <v-card-title class="headline">Choisissez une action</v-card-title>
-  
-  
-          <v-card-actions>
-            <v-spacer></v-spacer>
-  
-  
-            <v-btn
-              color="green darken-1"
-              text
-              @click="dialog_select = false"
-            >
-            D'accord
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-
-      <Tell v-if="item_selected==='Tell'" :titre="texte" :element="element"/>
-      <Get v-if="item_selected==='Get'" :titre="texte" :element="element"/>
-      <Ask v-if="item_selected==='Ask'" :titre="texte" :element="element"/>
     </v-form>
 
     
@@ -66,6 +44,7 @@ import Ask from './Ask'
 import boards from './boards.json';
 export default {
      name: 'Main',
+     props:["user"],
      components:{
          Tell, Get, Ask
      },
@@ -73,7 +52,7 @@ export default {
          texte:"",
          tmp_object:[],
          items: ['Tell', 'Get', 'Ask'],
-         item_selected:"",
+         item_selected:"Tell",
          dialog_select: false,
          nb_elem:1,
          boards:boards,

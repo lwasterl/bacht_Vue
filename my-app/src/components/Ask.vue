@@ -10,8 +10,23 @@
                     label="Element (si vide, on questionne le Board)"
                     v-model="element">
 
-                    </v-text-field></v-col>
+                    </v-text-field>
+                    </v-col>
+                    
                 </v-row>
+                <v-row  align="center" justify="center">
+                                    <v-col  class="d-flex" cols="12" sm="4">
+                    <v-text-field
+                   
+                    label="Auteur du board"
+                    v-model="author">
+
+                    </v-text-field>
+                    </v-col>
+                    
+                </v-row>
+
+
                     <v-row>
                         <v-col>
                             <v-btn color="primary" v-on:click="send">Envoyer</v-btn>
@@ -30,35 +45,59 @@
 import boards from './boards.json';
 export default {
     name: "Ask",
-    props:["titre", "element"],
+    props:["titre", "element", "user"],
     data: ()=>({
         message:"",
-        boards: boards
+        boards: boards,
+        author:""
     }),
     methods:{
-        send: function(){
-                for (let i = 0; i < boards.length; i++) {
-                    if(boards[i]["title"]==this.titre){
-                        if(this.element==''){
-                            
-                            this.message=boards[i]["title"] + " existe"
-                            return
-                        }else{
-                            for (let j = 0; j < boards.length; j++) {
-                                console.log(boards[i][j])
-                                if(boards[i]["element"][j]==this.element){
-                                    this.message="l'élement: "+boards[i]["element"][j]+ " existe" 
-                                    return
-                                }
+        send(){
+            if(this.element==""){
+                const postData = {"titleBoard":this.titre,"userId":this.author};
+                this.$http
+                        .post("http://localhost:8080/ask/board", postData)
+                        .then(res => {
+                            if(res.body){
+                                this.message="le board: "+this.titre+" de "+ this.author+" existe"
                             }
-                        }
-                        this.message="l'élement: "+this.element+ " n'existe pas dans le Board "+ this.titre
-                        return  
-                        
-                    }this.message=this.titre + " n'existe pas"
-                    
-                }
+                            else{
+                                this.message="ce board n'existe pas"
+                            }
+                            
+                        });
+
+            }else{
+                var url = "http://localhost:8080/read/board/"+this.titre+this.author
+                this.$http.get(url)
+                        .then(res => {
+                                this.post = res.body[0];
+                                this.all_elem=false
+                                var id="";
+                                for (let i = 0; i < res.body.length; i++) {
+                                        if(res.body[i].body==this.element){
+        
+                                            id=res.body[i].id
+                                            
+                                        }
+                                    
+                                }
+                               const postData = {"titleBoard":this.titre,"userId":this.author,"elementId":id,"body": this.element};
+                               this.$http
+                                .post("http://localhost:8080/ask/element", postData)
+                                .then(res => {
+                                    if(res.body){
+                                        this.message="l'element: "+this.element+" du board: "+ this.titre+ "de " +this.author +" existe"
+                                    }
+                                    else{
+                                        this.message="cet élément n'existe pas"
+                                    }
+                                });
+                 });
                 
+ 
+
+            }
         }
     }
 }
