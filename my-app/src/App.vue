@@ -22,17 +22,17 @@
     </v-content>
     <v-content v-else id="connect">
       <v-row align="center" justify="center">
-        <v-col>
+        <v-col  class="d-flex" cols="8" sm="4">
        <v-btn color="primary"  v-on:click="ajout">Ajouter un utilisateur</v-btn>
         
         </v-col>
-
-        <v-col>
+             </v-row>
+  <v-row align="center" justify="center">
+        <v-col  class="d-flex" cols="12" sm="4">
 
           <v-btn color="primary" v-on:click="connect">Se connecter</v-btn>
         </v-col>
-      </v-row>
-
+ </v-row>
 
     </v-content>
 
@@ -47,7 +47,12 @@
            
               <v-text-field label="Nom" v-model="add_name"></v-text-field>
                          <v-spacer></v-spacer>
-              <v-text-field label="Role" v-model="add_role"></v-text-field>
+                    <v-select
+                    :items="items"
+                    filled
+                    label="Role"
+                    v-model="add_role"
+                    ></v-select>
 
            
                    
@@ -117,6 +122,7 @@ export default {
     post:"",
     title:"",
     body:"",
+    items: ['eleve', 'professeur', 'assistant', 'doyen'],
   }),
 
   created(){
